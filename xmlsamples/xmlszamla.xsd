@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.szamlazz.hu/xmlszamla" xmlns:tns="http://www.szamlazz.hu/xmlszamla" elementFormDefault="qualified">
+
+    <complexType name="vevoTipus">
+        <sequence>
+            <element name="nev" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="orszag" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="irsz" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="telepules" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="cim" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="email" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="sendEmail" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="adoszam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="adoszamEU" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="postazasiNev" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="postazasiOrszag" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="postazasiIrsz" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="postazasiTelepules" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="postazasiCim" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="vevoFokonyv" type="tns:vevoFokonyvTipus" maxOccurs="1" minOccurs="0"></element>            
+            <element name="azonosito" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="alairoNeve" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="telefonszam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="megjegyzes" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="vevoFokonyvTipus">
+        <sequence>
+            <element name="konyvelesDatum" type="date" maxOccurs="1" minOccurs="0"></element>
+            <element name="vevoAzonosito" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="vevoFokonyviSzam" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+    
+    <complexType name="eladoTipus">
+        <sequence>
+            <element name="bank" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="bankszamlaszam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="emailReplyto" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="emailTargy" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="emailSzoveg" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="alairoNeve" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+    
+    <complexType name="beallitasokTipus">
+        <sequence>
+            <element name="felhasznalo" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="jelszo" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="eszamla" type="boolean" maxOccurs="1" minOccurs="1"></element>
+            <element name="kulcstartojelszo" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="szamlaLetoltes" type="boolean" maxOccurs="1" minOccurs="1"></element>
+            <element name="szamlaLetoltesPld" type="int" maxOccurs="1" minOccurs="0"></element>
+            <element name="valaszVerzio" type="int" maxOccurs="1" minOccurs="0"></element>
+            <element name="aggregator" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+    
+    <complexType name="tetelTipus">
+        <sequence>
+            <element name="megnevezes" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="azonosito" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="mennyiseg" type="double" maxOccurs="1" minOccurs="1"></element>
+            <element name="mennyisegiEgyseg" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="nettoEgysegar" type="double" maxOccurs="1" minOccurs="1"></element>
+            <element name="afakulcs" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="arresAfaAlap" type="double" maxOccurs="1" minOccurs="0"></element>                        
+            <element name="nettoErtek" type="double" maxOccurs="1" minOccurs="1"></element>
+            <element name="afaErtek" type="double" maxOccurs="1" minOccurs="1"></element>
+            <element name="bruttoErtek" type="double" maxOccurs="1" minOccurs="1"></element>
+            <element name="megjegyzes" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="tetelFokonyv" type="tns:tetelFokonyvTipus" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="tetelFokonyvTipus">
+        <sequence>
+            <element name="gazdasagiEsem" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="gazdasagiEsemAfa" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="arbevetelFokonyviSzam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="afaFokonyviSzam" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="fejlecTipus">
+        <sequence>
+            <element name="keltDatum" type="date" maxOccurs="1" minOccurs="1"></element>
+            <element name="teljesitesDatum" type="date" maxOccurs="1" minOccurs="1"></element>
+            <element name="fizetesiHataridoDatum" type="date" maxOccurs="1" minOccurs="1"></element>
+            <element name="fizmod" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="penznem" type="string" maxOccurs="1"    minOccurs="1"></element>
+            <element name="szamlaNyelve" type="tns:szamlaNyelveTipus" maxOccurs="1" minOccurs="1"></element>
+            <element name="megjegyzes" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="arfolyamBank" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="arfolyam" type="double" maxOccurs="1" minOccurs="0"></element>
+            <element name="rendelesSzam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="elolegszamla" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="vegszamla" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="helyesbitoszamla" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="helyesbitettSzamlaszam" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="dijbekero" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="logoExtra" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="szamlaszamElotag" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="fizetendoKorrekcio" type="double" maxOccurs="1" minOccurs="0"></element>
+            <element name="fizetve" type="boolean" maxOccurs="1" minOccurs="0"></element>
+            <element name="arresAfa" type="boolean" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="szamlaNyelveTipus">
+        <restriction base="string">
+            <enumeration value="hu"></enumeration>
+            <enumeration value="en"></enumeration>
+            <enumeration value="de"></enumeration>
+            <enumeration value="it"></enumeration>
+            <enumeration value="ro"></enumeration>
+            <enumeration value="sk"></enumeration>
+            <enumeration value="hr"></enumeration>
+            <enumeration value="fr"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <complexType name="transoflexTipus">
+        <sequence>
+            <!-- a TOF-tól kapott 5 jegyű szám -->
+            <element name="azonosito" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="shipmentID" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="csomagszam" type="int" maxOccurs="1" minOccurs="0"></element>
+            <element name="countryCode" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="zip" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="service" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="sprinterTipus">
+        <sequence>
+            <!-- Sprinterrel egyeztetett 3 karakteres rövidítés -->
+            <element name="azonosito" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- Sprintertől kapott feladókód, 10 jegyű szám -->
+            <element name="feladokod" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- Sprinteres iránykód, az a sprinter saját "irányítószáma", pl. "106" -->
+            <element name="iranykod" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- Csomagok száma, ennyi fuvarlevél lesz a számlához összesen -->
+            <element name="csomagszam" type="int" maxOccurs="1" minOccurs="0"></element>
+            <!-- számlánként egyedi, 7-13 karakteres azonosító -->
+            <element name="vonalkodPostfix" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- ez az 1 munkanapos szöveg, többnyire -->
+            <element name="szallitasiIdo" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="pppTipus">
+        <sequence>
+            <!-- PPP-vel egyeztetett 3 karakteres rövidítés -->
+            <element name="vonalkodPrefix" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- számlánként egyedi, maximum 7 karakteres azonosító -->
+            <element name="vonalkodPostfix" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="fuvarlevelTipus">
+        <sequence>
+            <!-- TODO az "uticel" nem használt, 2014.05.30. után eltávolítandó, helyette a sprinter/iranykod mező használandó -->
+            <element name="uticel" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- TOF, PPP, SPRINTER lehet az értéke, ha nincs fuvarlevél, akkor nem kell megadni -->
+            <element name="futarSzolgalat" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- Általános vonalkód megadási lehetőség, ha az alágban nem adjuk meg az adott futárszolgálat 
+                 vonalkódjának előállításához szükséges adatokat akkor ezt használja a rendszer. -->
+            <element name="vonalkod" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- A fuvarlevélen ez a megjegyzés jelenik meg. -->
+            <element name="megjegyzes" type="string" maxOccurs="1" minOccurs="0"></element>
+            <!-- Trans-O-Flex futárszolgálat esetén feltöltendő csomópont -->
+            <element name="tof" type="tns:transoflexTipus" maxOccurs="1" minOccurs="0"></element>
+            <!-- PickPackPoint-ra szállítás esetén kitöltendő csomópont -->
+            <element name="ppp" type="tns:pppTipus" maxOccurs="1" minOccurs="0"></element>
+            <!-- Sprinter futárszolgálat esetén feltöltendő csomópont -->
+            <element name="sprinter" type="tns:sprinterTipus" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <element name="xmlszamla">
+	    <complexType>
+	        <sequence>
+	            <element name="beallitasok" type="tns:beallitasokTipus" maxOccurs="1" minOccurs="1"></element>
+	            <element name="fejlec" type="tns:fejlecTipus" maxOccurs="1" minOccurs="1"></element>
+	            <element name="elado" type="tns:eladoTipus" maxOccurs="1" minOccurs="1"></element>
+	            <element name="vevo" type="tns:vevoTipus" maxOccurs="1" minOccurs="1"></element>
+	            <element name="fuvarlevel" type="tns:fuvarlevelTipus" maxOccurs="1" minOccurs="0"></element>
+	            <element name="tetelek" type="tns:tetelekTipus" maxOccurs="1" minOccurs="1"></element>
+	        </sequence>
+	    </complexType>
+    </element>
+
+    <complexType name="tetelekTipus">
+        <sequence>
+            <element name="tetel" type="tns:tetelTipus" maxOccurs="unbounded" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+</schema>
