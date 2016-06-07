@@ -1,9 +1,9 @@
 <?php
 
-namespace SzamlazzHuAgent;
+namespace Clapp\SzamlazzhuClient;
 use SebastianBergmann\Exporter\Exception;
-use SzamlazzHuAgent\Exception\AuthenticationException;
-use SzamlazzHuAgent\Invoice\Pdf;
+use Clapp\SzamlazzhuClient\Exception\AuthenticationException;
+use Clapp\SzamlazzhuClient\Invoice\Pdf;
 
 /**
  * Created by PhpStorm.
@@ -11,7 +11,7 @@ use SzamlazzHuAgent\Invoice\Pdf;
  * Date: 2016.03.18.
  * Time: 12:21
  */
-class SzamlazzHuAgent
+class SzamlazzhuClient
 {
 
     private $config = null;

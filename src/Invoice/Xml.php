@@ -1,9 +1,9 @@
 <?php
 
-namespace SzamlazzHuAgent\Invoice;
+namespace Clapp\SzamlazzhuClient\Invoice;
 
 use LSS\Array2XML;
-use SzamlazzHuAgent\Invoice;
+use Clapp\SzamlazzhuClient\Invoice;
 
 class Xml
 {

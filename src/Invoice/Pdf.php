@@ -1,6 +1,6 @@
 <?php
 
-namespace SzamlazzHuAgent\Invoice;
+namespace Clapp\SzamlazzhuClient\Invoice;
 
 
 class Pdf

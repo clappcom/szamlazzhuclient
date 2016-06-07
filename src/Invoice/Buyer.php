@@ -6,7 +6,7 @@
  * Time: 12:33
  */
 
-namespace SzamlazzHuAgent\Invoice;
+namespace Clapp\SzamlazzhuClient\Invoice;
 
 
 class Buyer

@@ -1,5 +1,5 @@
 {
-  "name": "clapp/szamlazzhuagent",
+  "name": "clapp/szamlazzhuclient",
   "description": "description_text",
   "license": "proprietary",
   "authors": [
@@ -13,7 +13,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SzamlazzHuAgent\\": "src/SzamlazzHuAgent/"
+      "Clapp\\SzamlazzhuClient\\": "src/"
     }
   },
   "require": {

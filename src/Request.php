@@ -6,11 +6,11 @@
  * Time: 12:53
  */
 
-namespace SzamlazzHuAgent;
+namespace Clapp\SzamlazzhuClient;
 
-use SzamlazzHuAgent\Exception\AuthenticationException;
-use SzamlazzHuAgent\Invoice\Pdf;
-use SzamlazzHuAgent\Invoice\Xml;
+use Clapp\SzamlazzhuClient\Exception\AuthenticationException;
+use Clapp\SzamlazzhuClient\Invoice\Pdf;
+use Clapp\SzamlazzhuClient\Invoice\Xml;
 
 class Request
 {

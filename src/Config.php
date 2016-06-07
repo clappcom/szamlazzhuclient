@@ -6,7 +6,7 @@
  * Time: 12:53
  */
 
-namespace SzamlazzHuAgent;
+namespace Clapp\SzamlazzhuClient;
 
 
 class Config

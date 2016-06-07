@@ -6,14 +6,14 @@
  * Time: 12:33
  */
 
-namespace SzamlazzHuAgent;
+namespace Clapp\SzamlazzhuClient;
 
-use SzamlazzHuAgent\Invoice\Buyer;
-use SzamlazzHuAgent\Invoice\DeliveryLetter;
-use SzamlazzHuAgent\Invoice\Header;
-use SzamlazzHuAgent\Invoice\Item;
-use SzamlazzHuAgent\Invoice\Seller;
-use SzamlazzHuAgent\Invoice\Xml;
+use Clapp\SzamlazzhuClient\Invoice\Buyer;
+use Clapp\SzamlazzhuClient\Invoice\DeliveryLetter;
+use Clapp\SzamlazzhuClient\Invoice\Header;
+use Clapp\SzamlazzhuClient\Invoice\Item;
+use Clapp\SzamlazzhuClient\Invoice\Seller;
+use Clapp\SzamlazzhuClient\Invoice\Xml;
 
 class Invoice
 {

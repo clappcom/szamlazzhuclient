@@ -6,9 +6,9 @@
  * Time: 12:53
  */
 
-namespace SzamlazzHuAgent;
+namespace Clapp\SzamlazzhuClient;
 
-use SzamlazzHuAgent\Invoice\Pdf;
+use Clapp\SzamlazzhuClient\Invoice\Pdf;
 
 class Response
 {
