@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xmlszamlapdf xmlns="http://www.szamlazz.hu/xmlszamlapdf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamlapdf xmlszamlapdf.xsd">
-  <felhasznalo>Kérem töltse ki!</felhasznalo>
-  <jelszo>Kérem töltse ki!</jelszo>
-  <szamlaszam>E-TST-2011-1</szamlaszam>
-  <valaszVerzio>2</valaszVerzio>
-</xmlszamlapdf>
