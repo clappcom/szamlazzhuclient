@@ -1,10 +1,15 @@
 <?php
 
+use Clapp\SzamlazzhuClient\SzamlazzhuClient;
+
 class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
 {
 
     public function testSzamlazzhuClient()
     {
+
+        var_dump(SzamlazzhuClient::raw()); exit;
+
 
         $invoice = new \Clapp\SzamlazzhuClient\Invoice();
 
@@ -23,7 +28,7 @@ class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
             'cookieStoragePath' => dirname(__FILE__) . '/storage',
         ]);
 
-        $agent = new \Clapp\SzamlazzhuClient\SzamlazzHuClient($config);
+        $agent = new \Clapp\SzamlazzhuClient\SzamlazzhuClient($config);
 
         $response = null;
 
