@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?> <xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla xmlszamla.xsd ">
+ <beallitasok>
+    <felhasznalo>teszt01</felhasznalo> <!-- a Számlázz.hu-s felhasználó -->
+    <jelszo>teszt01</jelszo> <!-- a Számlázz.hu-s felhasználó jelszava -->
+    <eszamla>true</eszamla> <!-- „true” ha e-számlát kell készíteni -->
+    <szamlaLetoltes>true</szamlaLetoltes> <!-- „true” ha a válaszban meg szeretnénk kapni az elkészült PDF számlát -->
+    <valaszVerzio>1</valaszVerzio> <!-- 1: egyszerű szöveges válaszüzenetet vagy pdf-et ad vissza. 2: xml válasz, ha kérte a pdf-et az base64 kódolással benne van az xml-ben. -->
+</beallitasok>
+ <fejlec>
+    <keltDatum>2010-09-12</keltDatum> <!-- a dátum formátum kötött -->
+    <teljesitesDatum>2010-09-10</teljesitesDatum>
+    <fizetesiHataridoDatum>2010-09-20</fizetesiHataridoDatum>
+    <fizmod>Átutalás</fizmod> <!-- értékkészlet: böngészőből történő számlakészítés során látható -->
+    <penznem>HUF</penznem> <!-- értékkészlet: böngészőből történő számlakészítés során látható -->
+    <szamlaNyelve>hu</szamlaNyelve> <!-- lehet: de, en, it -->
+    <megjegyzes>Számla megjegyzés</megjegyzes>
+    <arfolyamBank>MNB</arfolyamBank> <!-- devizás számla esetén meg kell adni, hogy melyik bank árfolyamával számoltuk a számlán a forintos ÁFA értéket -->
+    <arfolyam>0.0</arfolyam> <!-- devizás számla esetén meg kell adni, hogy melyik bank árfolyamával számoltuk a számlán a forintos ÁFA értéket -->
+    <rendelesSzam></rendelesSzam>
+    <elolegszamla>false</elolegszamla>
+    <vegszamla>false</vegszamla>
+    <helyesbitoszamla>false</helyesbitoszamla>
+    <helyesbitettSzamlaszam />
+    <dijbekero>false</dijbekero>
+    <szamlaszamElotag>Kérem töltse ki!</szamlaszamElotag> <!-- a számlatömb menüben található lista valamelyik engedélyezett sorának számlaszám előtag értéke-->
+    <fizetve>true</fizetve> <!-- a számla elkészítését követően azonnal kifizetettként adminisztrálódik -->
+</fejlec>
+ <elado> <!-- Az eladó adatai, az itt nem szereplő adatokat a Számlázz.hu felhasználói fiókból veszi a rendszer -->
+    <bank>BB</bank>
+    <bankszamlaszam>11111111-22222222-33333333</bankszamlaszam>
+    <emailReplyto></emailReplyto>
+    <emailTargy>Számla értesítő</emailTargy>
+    <emailSzoveg>Fizesse ki a számlát, különben mindenkori ...</emailSzoveg>
+    <alairoNeve>Eladó Aláírója</alairoNeve><!-- Nem kötelező adat. Ha a beállítások oldalon be van kapcsolva, akkor ez a név megjelenik az aláírásra szolgáló vonal alatt -->
+</elado>
+ <vevo> <!-- Vevő adatai -->
+    <nev>Kovacs Bt.</nev>
+    <irsz>2030</irsz>
+    <telepules>Érd</telepules>
+    <cim>Tárnoki út 23.</cim>
+    <!-- <email></email> --> <!-- ha meg van adva, akkor erre az email címre kiküldi a számlát a Számlázz.hu TESZT FIÓK ESETÉN BIZTONSÁGI OKOKBÓL NEM KÜLD A RENDSZER EMAILT. AZ EMAIL KÜLDÉS E-SZÁMLA ÉS PRÉMIUM CSOMAG ESETÉN MŰKÖDIK. →
+    <!--sendEmail>false</sendEmail--> <!-->kérheti, hogy érvényes email cím esetén mégse küldje el a Számla Agent a számlaértesítő email-t.<-->
+    <adoszam>12345678-1-42</adoszam>
+    <postazasiNev>Kovács Bt. postázási név</postazasiNev> <!-- a postázási adatok nem kötelezők -->
+    <postazasiIrsz>2040</postazasiIrsz>
+    <postazasiTelepules>Budaörs</postazasiTelepules>
+    <postazasiCim>Szivárvány utca 8. VI.em. 42.</postazasiCim>
+    <alairoNeve>Vevő Aláírója</alairoNeve><!-- Nem kötelező adat. Ha a beállítások oldalon be van kapcsolva, akkor ez a név megjelenik az aláírásra szolgáló vonal alatt -->
+    <telefonszam>Tel:+3630-555-55-55, Fax:+3623-555-555</telefonszam>
+    <megjegyzes>A portáról felszólni a 214-es mellékre.</megjegyzes>
+</vevo>
+    <fuvarlevel><!-- Ez nem kötelező szekció, ha fuvarlevelet szeretne nyomtatni kérjük vegye fel a kapcsolatot az ügyfélszolgálattal az info@szamlazz.hu email címen. -->
+    <uticel></uticel>
+    <futarSzolgalat></futarSzolgalat>
+    </fuvarlevel>
+<tetelek> <!-- a számla tételei -->
+    <tetel>
+        <megnevezes>Elado izé</megnevezes>
+        <mennyiseg>1.0</mennyiseg>
+        <mennyisegiEgyseg>db</mennyisegiEgyseg>
+        <nettoEgysegar>10000</nettoEgysegar>
+        <afakulcs>25</afakulcs> <!-- ua. adható meg, mint a számlakészítés oldalon -->
+        <nettoErtek>10000.0</nettoErtek>
+        <afaErtek>2500.0</afaErtek>
+        <bruttoErtek>12500.0</bruttoErtek>
+        <megjegyzes>tétel megjegyzés 1</megjegyzes>
+    </tetel>
+    <tetel>
+        <megnevezes>Elado izé 2</megnevezes>
+        <mennyiseg>2.0</mennyiseg>
+        <mennyisegiEgyseg>db</mennyisegiEgyseg>
+        <nettoEgysegar>10000</nettoEgysegar>
+        <afakulcs>25</afakulcs>
+        <nettoErtek>20000.0</nettoErtek>
+        <afaErtek>5000.0</afaErtek>
+        <bruttoErtek>25000.0</bruttoErtek>
+        <megjegyzes>tétel megjegyzés 2</megjegyzes>
+     </tetel>
+ </tetelek> 
+</xmlszamla>
+
