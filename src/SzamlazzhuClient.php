@@ -12,7 +12,7 @@ use LSS\Array2XML;
  * Date: 2016.03.18.
  * Time: 12:21
  */
-class SzamlazzhuClient
+class SzamlazzhuClient extends MutatorAccessable
 {
 
     private $config = null;

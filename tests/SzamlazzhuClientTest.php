@@ -10,6 +10,74 @@ class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
 
         var_dump(SzamlazzhuClient::raw()); exit;
 
+        /**
+         * nem megadható mezők (értelmetlen őket változtatni):
+         * - eszamla
+         * - szamlaLetoltes
+         * - valaszVerzio
+         * - elolegszamla
+         * - vegszamla
+         * - helyesbitoszamla
+         * - helyesbitettSzamlaszam
+         * - dijbekero
+         * - szamlaszamElotag
+         * - fizetve
+         * - afaErtek
+         * - bruttoErtek
+         *
+         * sensible defaulttal rendelkező opcionális mezők:
+         * - keltDatum (ma)
+         * - teljesitesDatum (ma)
+         * - fizetesiHataridoDatum (+30nap)
+         * - penznem (HUF)
+         * - szamlaNyelve (hu)
+         * - megjegyzes (üres)
+         * - arfolyamBank (üres)
+         * - arfolyam (üres)
+         * - szamlaszamElotag (üres)
+         * - afaErtek (kiszámolt)
+         * - bruttoErtek (kiszámolt)
+         * - megjegyzes (üres)
+         */
+        $invoice = new Invoice()
+            ->setItems($cart)
+            ->addItem($cartItem)
+            ->setMerchant($merchant)
+            ->setCustomer($customer);
+        $invoice->cart = $cart;
+        $invoice->signatureDate = new Carbon();
+        $invoice->fulfilmentDate = new Carbon();
+        $invoice->dueDate = new Carbon();
+        $invoice->paymentMethod = "foo";
+        $invoice->currency = "bar";
+        $invoice->language = "hu"; //de, en, it
+        $invoice->comment = "foo bar";
+        $invoice->exchangeRate = 0.0;
+        $invoice->exchangeRateBank = "FooBank";
+        $invoice->orderNumber = "uniquefoo1234";
+        $invoice->bankNumberPrefix = "";
+
+        try {
+            $invoice->validate();
+        }catch(Exception $e){
+
+        }
+
+
+        $client = new SzamlazzhuClient();
+        $client->username = "Teszt01";
+        $client->password = "s3cr3t";
+        try {
+            $pdfContents = $client->generateInvoicePdf($invoice);
+        }catch(Exception $e){
+
+        }
+
+
+
+
+
+
 
         $invoice = new \Clapp\SzamlazzhuClient\Invoice();
 
