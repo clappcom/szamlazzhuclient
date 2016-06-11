@@ -14,7 +14,10 @@
   "autoload": {
     "psr-4": {
       "Clapp\\SzamlazzhuClient\\": "src/"
-    }
+    },
+    "classmap": [
+        "tests"
+    ]
   },
   "require": {
     "openlss/lib-array2xml": "^0.0.10"
