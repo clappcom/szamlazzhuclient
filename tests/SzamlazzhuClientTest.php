@@ -2,7 +2,7 @@
 
 use Clapp\SzamlazzhuClient\SzamlazzhuClient;
 
-class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
+class SzamlazzhuClientTest extends TestCase
 {
 
     public function testSzamlazzhuClient()
@@ -39,12 +39,19 @@ class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
          * - bruttoErtek (kiszámolt)
          * - megjegyzes (üres)
          */
-        $invoice = new Invoice()
+        $invoice = (new Invoice())
             ->setItems($cart)
             ->addItem($cartItem)
             ->setMerchant($merchant)
             ->setCustomer($customer);
-        $invoice->cart = $cart;
+
+        $invoice->getItems();
+        $invoice->getMerchant();
+        $invoice->getCustomer();
+
+        $invoice->items = $cart;
+
+
         $invoice->signatureDate = new Carbon();
         $invoice->fulfilmentDate = new Carbon();
         $invoice->dueDate = new Carbon();
@@ -57,8 +64,14 @@ class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
         $invoice->orderNumber = "uniquefoo1234";
         $invoice->bankNumberPrefix = "";
 
+        $arr = $invoice->toArray();
+        $invoice = new Invoice($arr);
+
         try {
-            $invoice->validate();
+            $invoice->validateItems();
+            $invoice->validateMerchant();
+            $invoice->validateCustomer();
+            $invoice->validate(); //all
         }catch(Exception $e){
 
         }
@@ -72,10 +85,6 @@ class SzamlazzhuClientTest extends PHPUnit_Framework_TestCase
         }catch(Exception $e){
 
         }
-
-
-
-
 
 
 
