@@ -7,15 +7,15 @@ interface InvoiceableItemContract {
      * A számlára kerülő termék adatai.
      * Az "afaErtek" és "bruttoErtek" mezőket automatikusan is kiszámolja a rendszer.
      * [
-     *  'megnevezes' => 'Elado izé',
-     *  'mennyiseg' => 1.0,
-     *  'mennyisegiEgyseg' => 'db',
-     *  'nettoEgysegar' => '10000',
-     *  'afakulcs' => '25', //ua. adható meg, mint a számlakészítés oldalon
-     *  'nettoErtek' => '10000.0',
-     *  'afaErtek' => '2500.0',
-     *  'bruttoErtek' => '12500.0',
-     *  'megjegyzes' => 'tétel megjegyzés 1',
+     *  'name' => 'Elado izé',
+     *  'quantity' => 1.0,
+     *  'quantityUnit' => 'db',
+     *  'netUnitPrice' => '10000',
+     *  'vatRate' => '25', //ua. adható meg, mint a számlakészítés oldalon
+     *  'netValue' => '10000.0',
+     *  'vatValue' => '2500.0',
+     *  'grossValue' => '12500.0',
+     *  'comment' => 'tétel megjegyzés 1',
      * ];
      */
     public function getInvoiceItemData();
