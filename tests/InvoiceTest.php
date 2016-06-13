@@ -233,6 +233,11 @@ class InvoiceTest extends TestCase{
         $invoice->dueDate = \Carbon\Carbon::now();
 
         $this->assertEquals($invoice->validate(), true);
+
+        $invoiceCopy = new Invoice($invoice);
+        $this->assertEquals($invoiceCopy->validate(), true);
+
+        $this->assertEquals(json_encode($invoiceCopy->toArray()), json_encode($invoice->toArray()));
     }
 }
 
