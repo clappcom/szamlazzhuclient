@@ -29,6 +29,6 @@ class InvoiceItem extends MutatorAccessible implements InvoiceableItemContract{
     }
 
     public function toArray(){
-        return $this->attributes;
+        return $this->getInvoiceItemData();
     }
 }

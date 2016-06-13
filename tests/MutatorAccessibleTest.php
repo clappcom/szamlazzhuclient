@@ -46,29 +46,29 @@ class MutatorAccessibleTest extends TestCase{
         $model = new Invoice();
 
         $this->expectException(Exception::class);
-        $model->signature_date = 'asd';
+        $model->signatureDate = 'asd';
     }
 
     public function testExtendedClassDateSetterMutator(){
 
         $model = new Invoice();
 
-        $model->signature_date = '2016-06-11';
+        $model->signatureDate = '2016-06-11';
 
-        $this->assertTrue($model->signature_date instanceof Carbon);
+        $this->assertTrue($model->signatureDate instanceof Carbon);
 
-        $this->assertEquals((string)$model->signature_date, "2016-06-11 00:00:00");
+        $this->assertEquals((string)$model->signatureDate, "2016-06-11 00:00:00");
 
-        $model->signature_date = '05/10/2016';
+        $model->signatureDate = '05/10/2016';
 
-        $this->assertTrue($model->signature_date instanceof Carbon);
+        $this->assertTrue($model->signatureDate instanceof Carbon);
 
-        $this->assertEquals((string)$model->signature_date, "2016-05-10 00:00:00");
+        $this->assertEquals((string)$model->signatureDate, "2016-05-10 00:00:00");
     }
 
     public function testExtendedClassGetterMutator(){
 
         $model = new Invoice();
-        $this->assertTrue($model->signature_date instanceof Carbon);
+        $this->assertTrue($model->signatureDate instanceof Carbon);
     }
 }

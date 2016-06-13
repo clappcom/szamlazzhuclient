@@ -124,6 +124,8 @@ class InvoiceTest extends TestCase{
                 'netUnitPrice' => $faker->numberBetween(50, 500),
                 'vatRate' => '25',
                 'netValue' => $faker->numberBetween(20,150),
+                'vatValue' => $faker->numberBetween(20,150),
+                'grossValue' => $faker->numberBetween(20,150),
             ];
         }
 
@@ -205,6 +207,8 @@ class InvoiceTest extends TestCase{
                 'netUnitPrice' => $faker->numberBetween(50, 500),
                 'vatRate' => '25',
                 'netValue' => $faker->numberBetween(20,150),
+                'vatValue' => $faker->numberBetween(20,150),
+                'grossValue' => $faker->numberBetween(20,150),
             ];
         }
 
@@ -229,8 +233,6 @@ class InvoiceTest extends TestCase{
         $invoice->dueDate = \Carbon\Carbon::now();
 
         $this->assertEquals($invoice->validate(), true);
-
-        dd($invoice->toArray());
     }
 }
 

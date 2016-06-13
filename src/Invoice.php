@@ -145,10 +145,11 @@ class Invoice extends MutatorAccessible
     }
 
     public function getSignatureDateAttribute(){
+        $ret = Carbon::now();
         if (array_has($this->attributes, 'fejlec.keltDatum')){
-            return Carbon::now();
+            $ret = new Carbon(array_get($this->attributes, 'fejlec.keltDatum'));
         }
-        return new Carbon(array_get($this->attributes, 'fejlec.keltDatum'));
+        return $ret->hour(0)->minute(0)->second(0);
     }
 
     public function setSettlementDateAttribute($date){
@@ -157,10 +158,11 @@ class Invoice extends MutatorAccessible
     }
 
     public function getSettlementDateAttribute(){
+        $ret = Carbon::now();
         if (array_has($this->attributes, 'fejlec.teljesitesDatum')){
-            return Carbon::now();
+            $ret = new Carbon(array_get($this->attributes, 'fejlec.teljesitesDatum'));
         }
-        return new Carbon(array_get($this->attributes, 'fejlec.teljesitesDatum'));
+        return $ret->hour(0)->minute(0)->second(0);
     }
 
     public function setDueDateAttribute($date){
@@ -169,10 +171,11 @@ class Invoice extends MutatorAccessible
     }
 
     public function getDueDateAttribute(){
+        $ret = Carbon::now();
         if (array_has($this->attributes, 'fejlec.fizetesiHataridoDatum')){
-            return Carbon::now();
+            $ret = new Carbon(array_get($this->attributes, 'fejlec.fizetesiHataridoDatum'));
         }
-        return new Carbon(array_get($this->attributes, 'fejlec.fizetesiHataridoDatum'));
+        return $ret->hour(0)->minute(0)->second(0);
     }
 
     /**
@@ -244,8 +247,10 @@ class Invoice extends MutatorAccessible
             'tetelek.*.nettoEgysegar' => 'required|numeric|min:0',
             'tetelek.*.afakulcs' => 'required|string',
             'tetelek.*.nettoErtek' => 'required|numeric|min:0',
-            //'afaErtek' => '2500.0',
-            //'bruttoErtek' => '12500.0',
+
+            'tetelek.*.afaErtek' => 'required|numeric|min:0',
+            'tetelek.*.bruttoErtek' => 'required|numeric|min:0',
+
             'tetelek.*.megjegyzes' => 'string'
         ];
     }
