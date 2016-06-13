@@ -2,133 +2,66 @@
 
 use Clapp\SzamlazzhuClient\SzamlazzhuClient;
 use Clapp\SzamlazzhuClient\Invoice;
+use Clapp\SzamlazzhuClient\Contract\InvoiceableItemCollectionContract;
 
 class SzamlazzhuClientTest extends TestCase
 {
     public function testSzamlazzhuClient()
     {
 
-        $invoice = new Invoice();
-        return;
-
-
-
-        var_dump(SzamlazzhuClient::raw()); exit;
-
-        /**
-         * nem megadható mezők (értelmetlen őket változtatni):
-         * - eszamla
-         * - szamlaLetoltes
-         * - valaszVerzio
-         * - elolegszamla
-         * - vegszamla
-         * - helyesbitoszamla
-         * - helyesbitettSzamlaszam
-         * - dijbekero
-         * - szamlaszamElotag
-         * - fizetve
-         * - afaErtek
-         * - bruttoErtek
-         *
-         * sensible defaulttal rendelkező opcionális mezők:
-         * - keltDatum (ma)
-         * - teljesitesDatum (ma)
-         * - fizetesiHataridoDatum (+30nap)
-         * - penznem (HUF)
-         * - szamlaNyelve (hu)
-         * - megjegyzes (üres)
-         * - arfolyamBank (üres)
-         * - arfolyam (üres)
-         * - szamlaszamElotag (üres)
-         * - afaErtek (kiszámolt)
-         * - bruttoErtek (kiszámolt)
-         * - megjegyzes (üres)
-         */
-        $invoice = (new Invoice())
-            ->setItems($cart)
-            ->addItem($cartItem)
-            ->setMerchant($merchant)
-            ->setCustomer($customer);
-
-        $invoice->getItems();
-        $invoice->getMerchant();
-        $invoice->getCustomer();
-
-        $invoice->items = $cart;
-
-
-        $invoice->signatureDate = new Carbon();
-        $invoice->fulfilmentDate = new Carbon();
-        $invoice->dueDate = new Carbon();
-        $invoice->paymentMethod = "foo";
-        $invoice->currency = "bar";
-        $invoice->language = "hu"; //de, en, it
-        $invoice->comment = "foo bar";
-        $invoice->exchangeRate = 0.0;
-        $invoice->exchangeRateBank = "FooBank";
-        $invoice->orderNumber = "uniquefoo1234";
-        $invoice->bankNumberPrefix = "";
-
-        $arr = $invoice->toArray();
-        $invoice = new Invoice($arr);
-
-        try {
-            $invoice->validateItems();
-            $invoice->validateMerchant();
-            $invoice->validateCustomer();
-            $invoice->validateOrderDetails();
-            $invoice->validate(); //all
-        }catch(Exception $e){
-
-        }
+        $invoice = $this->fakeInvoice();
 
 
         $client = new SzamlazzhuClient();
-        $client->username = "Teszt01";
-        $client->password = "s3cr3t";
-        try {
-            $pdfContents = $client->generateInvoicePdf($invoice);
-        }catch(Exception $e){
+        $client->username = getenv('SZAMLAZZHU_USERNAME');
+        $client->password = getenv('SZAMLAZZHU_PASSWORD');
 
+        $pdfContents = $client->generateInvoicePdf($invoice);
+
+
+    }
+
+    protected function fakeInvoice(){
+        $faker = $this->faker;
+        $invoice = new Invoice();
+
+        $invoice->customerName = $this->faker->name;
+        $invoice->customerBillingPostcode = $this->faker->postCode;
+        $invoice->customerBillingCity = $this->faker->city;
+        $invoice->customerBillingAddress = $this->faker->address;
+
+
+        $invoice->merchantBankName = $this->faker->name;
+        $invoice->merchantBankAccountNumber = $this->faker->bankAccountNumber;
+
+        $_items = [];
+        for($i = 0; $i < 5; $i++){
+            $_items[] = [
+                'name' => $faker->name,
+                'quantity' => $faker->numberBetween(0,12),
+                'quantityUnit' => 'db',
+                'netUnitPrice' => $faker->numberBetween(50, 500),
+                'vatRate' => '25',
+                'netValue' => $faker->numberBetween(20,150),
+                'vatValue' => $faker->numberBetween(20,150),
+                'grossValue' => $faker->numberBetween(20,150),
+            ];
         }
 
+        $items = $this->createMock(InvoiceableItemCollectionContract::class);
+        $items->method('getInvoiceItemCollectionData')
+            ->willReturn($_items);
+        $invoice->items = $items;
 
+        $invoice->paymentMethod = 'utánvétel';
+        $invoice->currency = 'HUF';
+        $invoice->language = 'hu';
 
-        $invoice = new \Clapp\SzamlazzhuClient\Invoice();
+        $invoice->signatureDate = '2016-01-02';
+        $invoice->settlementDate = '05/10/2015';
+        $invoice->dueDate = \Carbon\Carbon::now();
 
-        $invoice->setInvoiceHeader(new \Clapp\SzamlazzhuClient\Invoice\Header());
-        $invoice->setBuyer(new \Clapp\SzamlazzhuClient\Invoice\Buyer());
-        $invoice->setSeller(new \Clapp\SzamlazzhuClient\Invoice\Seller());
-        $invoice->addItem(new \Clapp\SzamlazzhuClient\Invoice\Item());
-        $invoice->addItem(new \Clapp\SzamlazzhuClient\Invoice\Item());
-
-        $config = new \Clapp\SzamlazzhuClient\Config([
-            'agentUrl' => 'https://www.szamlazz.hu/szamla/',
-            'username' => 'invoicebot',
-            'password' => 'Invoicebot9010',
-            'xmlStoragePath' => dirname(__FILE__) . '/storage/xml',
-            'pdfStoragePath' => dirname(__FILE__) . '/storage/pdf',
-            'cookieStoragePath' => dirname(__FILE__) . '/storage',
-        ]);
-
-        $agent = new \Clapp\SzamlazzhuClient\SzamlazzhuClient($config);
-
-        $response = null;
-
-        /*try
-        {*/
-            $response = $agent->send($invoice);
-/*
-        }catch(\Clapp\SzamlazzhuClient\Exception\AuthenticationException $e) {
-            var_dump($e->getMessage());
-        }catch(HttpException $e) {
-            var_dump($e->getMessage());
-        }catch(Exception $e) {
-            var_dump($e->getMessage());
-        }
-
-*/
-        $this->assertInstanceOf(\Clapp\SzamlazzhuClient\Response::class, $response);
+        return $invoice;
     }
 
 }
