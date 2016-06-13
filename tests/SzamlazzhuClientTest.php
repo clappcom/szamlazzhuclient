@@ -1,12 +1,17 @@
 <?php
 
 use Clapp\SzamlazzhuClient\SzamlazzhuClient;
+use Clapp\SzamlazzhuClient\Invoice;
 
 class SzamlazzhuClientTest extends TestCase
 {
-
     public function testSzamlazzhuClient()
     {
+
+        $invoice = new Invoice();
+        return;
+
+
 
         var_dump(SzamlazzhuClient::raw()); exit;
 
@@ -71,6 +76,7 @@ class SzamlazzhuClientTest extends TestCase
             $invoice->validateItems();
             $invoice->validateMerchant();
             $invoice->validateCustomer();
+            $invoice->validateOrderDetails();
             $invoice->validate(); //all
         }catch(Exception $e){
 
