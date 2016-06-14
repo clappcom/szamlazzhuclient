@@ -62,12 +62,63 @@ class InvoiceTest extends TestCase{
         $this->assertEquals($invoice->customerName, "bar");
     }
 
+    public function testUnknownKeysSort(){
+        $invoice = new Invoice();
+        $invoice->fill([
+            'aaakey' => 'bar',
+            'bbbkey' => 'bar',
+            'paymentMethod' => 'foo',
+            'ccckey' => 'bar',
+        ]);
+        $sortedKeys = array_keys($invoice->toArray());
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('aaakey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('bbbkey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('ccckey', $sortedKeys));
+
+        $invoice = new Invoice();
+        $invoice->fill([
+            'aaakey' => 'bar',
+            'bbbkey' => 'bar',
+            'currency' => 'bar',
+            'paymentMethod' => 'foo',
+            'ccckey' => 'bar',
+        ]);
+        $sortedKeys = array_keys($invoice->toArray());
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('aaakey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('bbbkey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('ccckey', $sortedKeys));
+
+        $invoice = new Invoice();
+        $invoice->fill([
+            'aaakey' => 'bar',
+            'bbbkey' => 'bar',
+            'currency' => 'bar',
+            'comment' => 'bar',
+            'paymentMethod' => 'foo',
+            'orderNumber' => 'foo',
+            'ccckey' => 'bar',
+        ]);
+        $sortedKeys = array_keys($invoice->toArray());
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('aaakey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('bbbkey', $sortedKeys));
+        $this->assertTrue(array_search('fejlec', $sortedKeys) < array_search('ccckey', $sortedKeys));
+    }
+
     public function testPrefillInvoiceAttributes(){
         $name = $this->faker->name;
         $invoice = new Invoice([
             'customerName' => $name,
         ]);
         $this->assertEquals($name, $invoice->customerName);
+    }
+
+    public function testInvalidInvoiceFill(){
+        try {
+            $invoice = new Invoice("invalid fill");
+        }catch(InvalidArgumentException $e){
+            $this->setLastException($e);
+        }
+        $this->assertLastException(InvalidArgumentException::class);
     }
 
     public function testInvalidItemsAttribute(){
