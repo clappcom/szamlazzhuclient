@@ -1,4 +1,4 @@
-Clapp/SzamlazzhuClient
+Clapp/SzamlazzhuClient ![build](https://travis-ci.org/clappcom/szamlazzhuclient.svg)
 ===
 Nem hivatalos Számlázz.hu PHP kliens. Alpha verzió, production-ben nem ajánlott. Használat csak saját felelősségre.
 
