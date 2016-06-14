@@ -1,6 +1,6 @@
 {
   "name": "clapp/szamlazzhuclient",
-  "description": "description_text",
+  "description": "Nem hivatalos Számlázz.hu PHP kliens.",
   "license": "proprietary",
   "authors": [
     {
