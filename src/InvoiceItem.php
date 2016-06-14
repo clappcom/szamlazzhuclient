@@ -25,7 +25,20 @@ class InvoiceItem extends MutatorAccessible implements InvoiceableItemContract{
     ];
 
     public function getInvoiceItemData(){
+        $this->sortAttributes();
         return $this->attributes;
+    }
+
+    /**
+     * az xml schemának nem mindegy, hogy milyen sorrendben vannak a key-ek a számlában
+     *
+     * ez "sorrendbe" rakja őket
+     */
+    protected function sortAttributes(){
+        $itemKeysOrder = ['megnevezes', 'azonosito', 'mennyiseg', 'mennyisegiEgyseg', 'nettoEgysegar', 'afakulcs', 'arresAfaAlap', 'nettoErtek', 'afaErtek', 'bruttoErtek', 'megjegyzes', 'tetelFokonyv'];
+        if (!empty($this->attributes)) {
+            $this->attributes = \sortArrayKeysToOrder($this->attributes,$itemKeysOrder);
+        }
     }
 
     public function toArray(){

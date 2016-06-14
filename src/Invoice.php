@@ -85,7 +85,8 @@ class Invoice extends MutatorAccessible
             $items = $items->getInvoiceItemCollectionData();
         }
         if (is_array($items)){
-            $this->attributes['tetelek'] = [];
+            if (!isset($this->attributes['tetelek']['tetel'])) $this->attributes['tetelek']['tetel'] = [];
+            $this->attributes['tetelek']['tetel'] = [];
             foreach($items as $item){
                 $this->addItem($item);
             }
@@ -95,8 +96,8 @@ class Invoice extends MutatorAccessible
     }
 
     public function getItemsAttribute(){
-        if (array_has($this->attributes, 'tetelek')){
-            return $this->attributes['tetelek'];
+        if (array_has($this->attributes, 'tetelek.tetel')){
+            return $this->attributes['tetelek']['tetel'];
             return array_map(function($item){
                 return new InvoiceItem($item);
             },array_get($this->attributes, 'tetelek'));
@@ -108,7 +109,8 @@ class Invoice extends MutatorAccessible
         if ($item instanceof InvoiceableItemContract){
             $item = $item->getInvoiceItemData();
         }
-        $this->attributes['tetelek'][] = (new InvoiceItem($item))->toArray();
+        if (!isset($this->attributes['tetelek']['tetel'])) $this->attributes['tetelek']['tetel'] = [];
+        $this->attributes['tetelek']['tetel'][] = (new InvoiceItem($item))->toArray();
     }
 
     public function setCustomerAttribute($customer){
@@ -241,17 +243,17 @@ class Invoice extends MutatorAccessible
     protected function getItemsValidationRules(){
         return [
             'tetelek' => 'required|array',
-            'tetelek.*.megnevezes' => 'required',
-            'tetelek.*.mennyiseg' => 'required|numeric|min:0',
-            'tetelek.*.mennyisegiEgyseg' => 'required|string',
-            'tetelek.*.nettoEgysegar' => 'required|numeric|min:0',
-            'tetelek.*.afakulcs' => 'required|string',
-            'tetelek.*.nettoErtek' => 'required|numeric|min:0',
+            'tetelek.0.*.tetel.megnevezes' => 'required',
+            'tetelek.0.*.tetel.mennyiseg' => 'required|numeric|min:0',
+            'tetelek.0.*.tetel.mennyisegiEgyseg' => 'required|string',
+            'tetelek.0.*.tetel.nettoEgysegar' => 'required|numeric|min:0',
+            'tetelek.0.*.tetel.afakulcs' => 'required|string',
+            'tetelek.0.*.tetel.nettoErtek' => 'required|numeric|min:0',
 
-            'tetelek.*.afaErtek' => 'required|numeric|min:0',
-            'tetelek.*.bruttoErtek' => 'required|numeric|min:0',
+            'tetelek.0.*.tetel.afaErtek' => 'required|numeric|min:0',
+            'tetelek.0.*.tetel.bruttoErtek' => 'required|numeric|min:0',
 
-            'tetelek.*.megjegyzes' => 'string'
+            'tetelek.0.*.tetel.megjegyzes' => 'string'
         ];
     }
     /**
@@ -314,7 +316,44 @@ class Invoice extends MutatorAccessible
             $this->validateOrderDetails();
     }
 
+    /**
+     * az xml schemának nem mindegy, hogy milyen sorrendben vannak a key-ek a számlában
+     *
+     * ez "sorrendbe" rakja őket
+     */
+    protected function sortAttributes(){
+        $invoiceKeysOrder = ['beallitasok', 'fejlec', 'elado', 'vevo', 'fuvarlevel', 'tetelek'];
+        $customerKeysOrder = ['nev', 'orszag', 'irsz', 'telepules', 'cim', 'email', 'sendEmail', 'adoszam', 'adoszamEU', 'postazasiNev',
+            'postazasiOrszag', 'postazasiIrsz', 'postazasiTelepules', 'postazasiCim', 'vevoFokonyv', 'azonosito', 'alairoNeve', 'telefonszam', 'megjegyzes'];
+        $merchantKeysOrder = ['bank', 'bankszamlaszam', 'emailReplyto', 'emailTargy', 'emailSzoveg', 'alairoNeve'];
+        $settingsKeysOrder = ['felhasznalo', 'jelszo', 'eszamla', 'kulcstartojelszo', 'szamlaLetoltes', 'szamlaLetoltesPld', 'valaszVerzio', 'aggregator'];
+        $headerKeysOrder = ['keltDatum', 'teljesitesDatum', 'fizetesiHataridoDatum', 'fizmod', 'penznem', 'szamlaNyelve', 'megjegyzes', 'arfolyamBank', 'arfolyam', 'rendelesSzam', 'elolegszamla', 'vegszamla', 'helyesbitoszamla', 'helyesbitettSzamlaszam', 'dijbekero', 'szallitolevel', '', 'logoExtra', 'szamlaszamElotag', 'fizetendoKorrekcio', 'fizetve', 'arresAfa'];
+
+        if (isset($this->attributes)) $this->attributes = \sortArrayKeysToOrder($this->attributes, $invoiceKeysOrder);
+
+        $aliases = [
+            'beallitasok' => $settingsKeysOrder,
+            'fejlec' => $headerKeysOrder,
+            'elado' => $merchantKeysOrder,
+            'vevo' => $customerKeysOrder,
+        ];
+
+        foreach ($aliases as $name => $keysOrder){
+            if (array_has($this->attributes, $name)) {
+                array_set(
+                    $this->attributes,
+                    $name,
+                    \sortArrayKeysToOrder(
+                        array_get($this->attributes, $name),
+                        $keysOrder
+                    )
+                );
+            }
+        }
+    }
+
     public function toArray(){
+        $this->sortAttributes();
         return $this->attributes;
     }
 }
