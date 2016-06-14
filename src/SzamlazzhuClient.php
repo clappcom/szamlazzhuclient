@@ -7,6 +7,7 @@ use Clapp\SzamlazzhuClient\Invoice;
 use GuzzleHttp\Client as HttpClient;
 use Clapp\SzamlazzhuClient\Traits\MutatorAccessibleAliasesTrait;
 use InvalidArgumentException;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Created by PhpStorm.
@@ -20,6 +21,8 @@ class SzamlazzhuClient extends MutatorAccessible
 
     protected $apiBase = 'https://www.szamlazz.hu/';
 
+    protected $handler = null;
+
     protected $attributeAliases = [
         'username' => 'felhasznalo',
         'password' => 'jelszo',
@@ -32,24 +35,30 @@ class SzamlazzhuClient extends MutatorAccessible
     public function generateInvoicePdf($invoice){
         $invoice = new Invoice($invoice);
 
-        $originalInvoice = $invoice;
+        try {
+            $invoice->validate();
+        }catch(ValidationException $e){
+            throw new InvalidArgumentException('invalid invoice');
+        }
 
         $invoice = $this->addRequiredInvoiceFields($invoice);
 
-        $client = new HttpClient([
+        $httpClientOptions = [
             'base_uri' => $this->apiBase,
             'timeout'  => 20.0,
             //'cookies' => true,
-        ]);
+        ];
+        if ($this->handler !== null) {
+            $httpClientOptions['handler'] = $this->handler;
+        }
+
+        $client = new HttpClient($httpClientOptions);
 
         $requestData = $this->transformRequestData($invoice);
-
         $response = $client->request('POST', '/szamla/', $requestData);
-
-        $responseBody = $this->transformResponse($response);
-
-        return $responseBody;
+        return $this->transformResponse($response);
     }
+
     /**
      * PDF-fé alakítja a választ, vagy Exceptiont dob, ha ez nem lehetséges.
      * @param $response
@@ -126,5 +135,12 @@ class SzamlazzhuClient extends MutatorAccessible
         $node->setAttribute('xmlns:xsi','http://www.w3.org/2001/XMLSchema-instance');
         $node->setAttribute('xsi:schemaLocation','http://www.szamlazz.hu/xmlszamla xmlszamla.xsd');
         return $invoiceDocument->saveXML();
+    }
+
+    /**
+     * teszteléshez GuzzleHttp\HandlerStack beállítása
+     */
+    public function setHandler($handler){
+        $this->handler = $handler;
     }
 }

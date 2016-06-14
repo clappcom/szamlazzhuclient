@@ -3,21 +3,95 @@
 use Clapp\SzamlazzhuClient\SzamlazzhuClient;
 use Clapp\SzamlazzhuClient\Invoice;
 use Clapp\SzamlazzhuClient\Contract\InvoiceableItemCollectionContract;
+use Clapp\SzamlazzhuClient\SzamlazzhuApiException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\RequestException;
 
 class SzamlazzhuClientTest extends TestCase
 {
-    public function testSzamlazzhuClient()
+    public function testMissingCredentials()
     {
 
         $invoice = $this->fakeInvoice();
 
+        $client = new SzamlazzhuClient();
+
+        $mock = new MockHandler([
+            new Response(200, ['szlahu_error_code' => '10', 'szlahu_error' => urlencode('mocked error #1')]),
+        ]);
+
+        $client->setHandler(HandlerStack::create($mock));
+
+        try {
+            $pdfContents = $client->generateInvoicePdf($invoice);
+        }catch(InvalidArgumentException $e){
+            $this->setLastException($e);
+        }
+        $this->assertLastException(InvalidArgumentException::class);
+    }
+
+    public function testInvalidInvoice(){
+        $invoice = new Invoice();
 
         $client = new SzamlazzhuClient();
-        $client->username = getenv('SZAMLAZZHU_USERNAME');
-        $client->password = getenv('SZAMLAZZHU_PASSWORD');
+
+        $mock = new MockHandler([
+            new Response(200, ['szlahu_error_code' => '10', 'szlahu_error' => urlencode('mocked error #2')]),
+        ]);
+
+        $client->setHandler(HandlerStack::create($mock));
+
+        try {
+            $pdfContents = $client->generateInvoicePdf($invoice);
+        }catch(InvalidArgumentException $e){
+            $this->setLastException($e);
+        }
+        $this->assertLastException(InvalidArgumentException::class);
+    }
+
+    public function testApiErrorMessage(){
+        $invoice = $this->fakeInvoice();
+
+        $client = new SzamlazzhuClient();
+        $client->username = 'foo';
+        $client->password = 'bar';
+
+        $mock = new MockHandler([
+            new Response(200, ['szlahu_error_code' => '10', 'szlahu_error' => urlencode('mocked error #3')]),
+        ]);
+
+        $client->setHandler(HandlerStack::create($mock));
+
+        try {
+            $pdfContents = $client->generateInvoicePdf($invoice);
+        }catch(SzamlazzhuApiException $e){
+            $this->setLastException($e);
+        }
+        $this->assertLastException(SzamlazzhuApiException::class);
+    }
+
+    public function testSuccessfulPdfGeneration(){
+
+        $invoice = $this->fakeInvoice();
+
+        $client = new SzamlazzhuClient();
+        $client->username = 'foo';
+        $client->password = 'bar';
+
+        $mock = new MockHandler([
+            new Response(200, [], 'fakepdfcontents'),
+        ]);
+        $handler = HandlerStack::create($mock);
+
+        $client->setHandler($handler);
 
         $pdfContents = $client->generateInvoicePdf($invoice);
     }
+
+
 
     protected function fakeInvoice(){
         $faker = $this->faker;
