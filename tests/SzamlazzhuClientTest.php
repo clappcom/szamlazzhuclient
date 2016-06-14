@@ -17,8 +17,6 @@ class SzamlazzhuClientTest extends TestCase
         $client->password = getenv('SZAMLAZZHU_PASSWORD');
 
         $pdfContents = $client->generateInvoicePdf($invoice);
-
-
     }
 
     protected function fakeInvoice(){
@@ -36,7 +34,7 @@ class SzamlazzhuClientTest extends TestCase
 
         $_items = [];
         for($i = 0; $i < 5; $i++){
-            $_items[] = [
+            $item = [
                 'name' => $faker->name,
                 'quantity' => $faker->numberBetween(0,12),
                 'quantityUnit' => 'db',
@@ -46,6 +44,11 @@ class SzamlazzhuClientTest extends TestCase
                 'vatValue' => $faker->numberBetween(20,150),
                 'grossValue' => $faker->numberBetween(20,150),
             ];
+            $item['netValue'] = $item['quantity'] * $item['netUnitPrice'];
+            $item['vatValue'] = $item['netValue'] * ($item['vatRate'] / 100);
+            $item['grossValue'] = $item['netValue'] + $item['vatValue'];
+
+            $_items[] = $item;
         }
 
         $items = $this->createMock(InvoiceableItemCollectionContract::class);

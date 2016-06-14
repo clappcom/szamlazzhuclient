@@ -95,6 +95,7 @@ class SzamlazzhuClient extends MutatorAccessible
      * @return array requestData
      */
     protected function transformRequestData(Invoice $invoice){
+
         $body = $this->transformRequestBody($invoice);
 
         return [
@@ -102,10 +103,10 @@ class SzamlazzhuClient extends MutatorAccessible
                 [
                     'name'     => 'action-xmlagentxmlfile',
                     'contents' => $body,
-                    /*'filename' => 'filename.txt',
-                    'headers'  => [
-                        'X-Foo' => 'this is an extra header to include'
-                    ]*/
+                    /**
+                     * dummy fájlnevet is meg kell adni, különben az API nem foglalkozik a fájllal
+                     */
+                    'filename' => 'invoice.xml',
                 ]
             ]
         ];
