@@ -1,4 +1,4 @@
-Clapp/SzamlazzhuClient [![Build Status](https://travis-ci.org/clappcom/szamlazzhuclient.svg)](https://travis-ci.org/clappcom/szamlazzhuclient)
+Clapp/SzamlazzhuClient [![Build Status](https://travis-ci.org/clappcom/szamlazzhuclient.svg)](https://travis-ci.org/clappcom/szamlazzhuclient) [![Coverage](https://coveralls.io/repos/github/clappcom/szamlazzhuclient/badge.svg?branch=master)](https://coveralls.io/github/clappcom/szamlazzhuclient)
 ===
 Nem hivatalos Számlázz.hu PHP kliens. Alpha verzió, production-ben nem ajánlott. Használat csak saját felelősségre.
 
