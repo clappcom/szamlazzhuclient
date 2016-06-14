@@ -129,7 +129,7 @@ class InvoiceTest extends TestCase{
             ];
         }
 
-        $items = $this->createMock(InvoiceableItemCollectionContract::class);
+        $items = $this->getMock(InvoiceableItemCollectionContract::class);
         $items->method('getInvoiceItemCollectionData')
             ->willReturn($_items);
         $invoice->items = $items;
@@ -212,7 +212,7 @@ class InvoiceTest extends TestCase{
             ];
         }
 
-        $items = $this->createMock(InvoiceableItemCollectionContract::class);
+        $items = $this->getMock(InvoiceableItemCollectionContract::class);
         $items->method('getInvoiceItemCollectionData')
             ->willReturn($_items);
         $invoice->items = $items;

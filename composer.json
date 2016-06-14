@@ -9,7 +9,7 @@
     }
   ],
   "require-dev": {
-    "phpunit/phpunit": "^5.4",
+    "phpunit/phpunit": "~4.8",
     "fzaninotto/faker": "^1.6",
     "satooshi/php-coveralls": "dev-master"
   },
@@ -25,6 +25,7 @@
     ]
   },
   "require": {
+    "php": "^5.5.9",
     "openlss/lib-array2xml": "^0.0.10",
     "illuminate/support": "^5.2",
     "illuminate/validation": "^5.2",

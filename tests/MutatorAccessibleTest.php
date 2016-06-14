@@ -30,7 +30,7 @@ class MutatorAccessibleTest extends TestCase{
         $model = new Invoice();
         $this->assertEquals($model->language, null);
 
-        $this->expectException('InvalidArgumentException');
+        $this->setExpectedException('InvalidArgumentException');
 
         $model->language = "foo";
         $this->assertEquals($model->language, null);
@@ -45,7 +45,7 @@ class MutatorAccessibleTest extends TestCase{
 
         $model = new Invoice();
 
-        $this->expectException(Exception::class);
+        $this->setExpectedException(Exception::class);
         $model->signatureDate = 'asd';
     }
 

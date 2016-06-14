@@ -51,7 +51,7 @@ class SzamlazzhuClientTest extends TestCase
             $_items[] = $item;
         }
 
-        $items = $this->createMock(InvoiceableItemCollectionContract::class);
+        $items = $this->getMock(InvoiceableItemCollectionContract::class);
         $items->method('getInvoiceItemCollectionData')
             ->willReturn($_items);
         $invoice->items = $items;
