@@ -6,7 +6,7 @@ Telepítés
 ---
 
 ```
-//todo
+composer require clapp/szamlazzhuclient:1.*@beta
 ```
 
 Használat
