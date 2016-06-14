@@ -4,8 +4,7 @@ php:
 - hhvm
 before_script:
 - composer self-update
-- composer require satooshi/php-coveralls:dev-master
-- composer install --prefer-source --no-interaction --dev
+- composer install --prefer-source --no-interaction
 script: ./vendor/bin/phpunit  --coverage-clover ./tests/logs/clover.xml
 env:
   global:
@@ -13,3 +12,6 @@ env:
   - secure: auGHs960hggJpXTfftRPMlrilvyhpOFcw6efVeRJX8FIiWNKsXl/fW2XlQKj/Q6blO+epQr7Fy4asJlBGhcM2SHV2lZUJ43GuwxfrkLKRgjKVn0PlpXSU4GrQ0ZnPsu3T2KQbjSkhf4m5zWHFLsacpW0sEYwYgrZBezbBOIpP5TFxd/wB2S/EeTNZGAHwq8sTLTpI9b8Yh6hTs1PTGnS+SOg3jO3VZ0eVy1ffsCpKiBeS2IbJN4XOX9oPwnaQn/Oq8SsKpTR5Nhe6v1h1wjvfLT1b27ouV5jhENJ4qKRVk2qV0p1hl6W3r7EcAczNF91LXVoqptnwP1BpY4IDX3EvpJB0SArwvaOmSfICJ1X9hzPpb94TSI45WGAufrPg2UtZPBAcHKRB5g0ASTlqDlHiEmlMheVn9+2mM2NREnru53zmb38XNYf6hivTevYbHKWxOHes1NU1YBLjEp0BhastDK5ubx1uO+yPUbiTerJkwsGTR+QgjIbD5dTM4PZ/PrGMKwzKQYFVTwZtC7PPKIh281qLI9B/DU71qRdwRucn7zhT85wX03tKPaclyiwLzsXrW9g4ctWD8nC6SfH6pF6mJgWvi/t0UJs8uoe5jreJH9hcVmyoGRllYuE5LmHCukxvsRCqgoyFy/Ibw77+PdE2WQufpJgLrNjH3EU4oG+y2U=
 after_script:
 - php vendor/bin/coveralls -v
+cache:
+  directories:
+    - $HOME/.composer/cache
