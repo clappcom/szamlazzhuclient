@@ -62,6 +62,24 @@ class InvoiceTest extends TestCase{
         $this->assertEquals($invoice->customerName, "bar");
     }
 
+    public function testPrefillInvoiceAttributes(){
+        $name = $this->faker->name;
+        $invoice = new Invoice([
+            'customerName' => $name,
+        ]);
+        $this->assertEquals($name, $invoice->customerName);
+    }
+
+    public function testInvalidItemsAttribute(){
+        $invoice = new Invoice();
+        try {
+            $invoice->items = "not_an_array";
+        }catch(InvalidArgumentException $e){
+            $this->setLastException($e);
+        }
+        $this->assertLastException(InvalidArgumentException::class);
+    }
+
     public function testInvoiceValidateCustomer(){
         $invoice = new Invoice();
 
@@ -159,9 +177,17 @@ class InvoiceTest extends TestCase{
         }
         $this->assertLastException(ValidationException::class);
 
+        $now = \Carbon\Carbon::now();
+
         $invoice->signatureDate = '2016-01-02';
         $invoice->settlementDate = '05/10/2015';
-        $invoice->dueDate = \Carbon\Carbon::now();
+        $invoice->dueDate = $now;
+
+        $now->hour(0)->minute(0)->second(0);
+
+        $this->assertEquals((string)$invoice->signatureDate, (string)(new \Carbon\Carbon('2016-01-02')));
+        $this->assertEquals((string)$invoice->settlementDate, (string)(new \Carbon\Carbon('05/10/2015')));
+        $this->assertEquals((string)$invoice->dueDate, (string)(new \Carbon\Carbon($now)));
 
         $this->assertEquals($invoice->validateOrderDetails(), true);
     }

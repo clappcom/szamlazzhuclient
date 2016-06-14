@@ -96,13 +96,10 @@ class Invoice extends MutatorAccessible
     }
 
     public function getItemsAttribute(){
-        if (array_has($this->attributes, 'tetelek.tetel')){
-            return $this->attributes['tetelek']['tetel'];
-            return array_map(function($item){
-                return new InvoiceItem($item);
-            },array_get($this->attributes, 'tetelek'));
-        }
-        return null;
+        return array_get($this->attributes, 'tetelek.tetel');
+        /*return array_map(function($item){
+            return new InvoiceItem($item);
+        },array_get($this->attributes, 'tetelek'));*/
     }
 
     public function addItem($item){
@@ -120,23 +117,11 @@ class Invoice extends MutatorAccessible
         $this->fill($customer);
     }
 
-    public function getCustomerAttribute($customer){
-        return $array = array_where($array, function ($key, $value) {
-            return is_string($key) && starts_with($key, 'customer');
-        });
-    }
-
     public function setMerchantAttribute($customer){
         if ($customer instanceof InvoiceableMerchantContract){
             $customer = $customer->getInvoiceMerchantData();
         }
         $this->fill($customer);
-    }
-
-    public function getMerchantAttribute($customer){
-        return $array = array_where($array, function ($key, $value) {
-            return is_string($key) && starts_with($key, 'customer');
-        });
     }
     /**
      * dátum mezők
