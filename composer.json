@@ -17,11 +17,13 @@
     "psr-4": {
       "Clapp\\SzamlazzhuClient\\": "src/"
     },
-    "classmap": [
-        "tests"
-    ],
     "files": [
         "./src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+        "tests"
     ]
   },
   "require": {
