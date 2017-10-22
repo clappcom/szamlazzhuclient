@@ -12,6 +12,9 @@ class Validator extends BaseValidator{
 
     public static function make(array $data, array $rules, array $messages = [], array $customAttributes = []){
         try{
+            if (!class_exists(IlluminateTranslator::class)){
+                throw new \Exception();
+            }
             return new static(new IlluminateTranslator(new ArrayLoader(), 'en'), $data, $rules, $messages, $customAttributes);
         }catch(\Exception $e){
             return new static(new SymfonyTranslator('en'), $data, $rules, $messages, $customAttributes);
